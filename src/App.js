@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import './App.css';
 
 const App = () => {
-	const [speed, setSpeed] = useState(250); // Speed of the game (Milliseconds between updates)
+	const [speed, setSpeed] = useState(1000); // Speed of the game (Milliseconds between updates)
 	const [speedPercent, setSpeedPercent] = useState(100); // Speed of the game in percents
 	const [timeMachineCount, setTimeMachineCount] = useState(0); // How many times you've Time Machine Restarted
 	const [positionCounterSpeed, setPositionCounterSpeed] = useState(1); // Number of positions ot add every Update Cycle
