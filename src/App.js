@@ -37,7 +37,7 @@ const App = () => {
 
 	/**
 	 * ------------------------------------------------------------------------------------------------------------------
-	 * 	Counters: Update cycles are based on the speed variable which is 1000ms initially
+	 * Counters: Update cycles are based on the speed variable which is 1000ms initially
 	 * ------------------------------------------------------------------------------------------------------------------
 	 */
 
@@ -45,10 +45,7 @@ const App = () => {
 	 * Increments the number of open job positions by the value stored in positionCounterSpeed every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(
-			() => setPositionCounter(positionCounter + positionCounterSpeed),
-			speed
-		);
+		const timer = setTimeout(() => setPositionCounter(positionCounter + positionCounterSpeed), speed);
 		return () => clearInterval(timer);
 	}, [positionCounter, positionCounterSpeed, speed]);
 
@@ -56,10 +53,7 @@ const App = () => {
 	 * Increment the number of interns by the value stored in moneyCounter every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(
-			() => setMoneyCounter(moneyCounter + internCounter),
-			speed
-		);
+		const timer = setTimeout(() => setMoneyCounter(moneyCounter + internCounter), speed);
 		return () => clearInterval(timer);
 	}, [moneyCounter, internCounter, speed]);
 
@@ -67,10 +61,7 @@ const App = () => {
 	 * Increment the number of employees by the value stored in internCounter every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(
-			() => setInternCounter(internCounter + employeeCounter),
-			speed
-		);
+		const timer = setTimeout(() => setInternCounter(internCounter + employeeCounter), speed);
 		return () => clearInterval(timer);
 	}, [internCounter, employeeCounter, speed]);
 
@@ -78,10 +69,7 @@ const App = () => {
 	 * Increment the number of supervisors by the value stored in employeeCounter every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(
-			() => setEmployeeCounter(employeeCounter + supervisorCounter),
-			speed
-		);
+		const timer = setTimeout(() => setEmployeeCounter(employeeCounter + supervisorCounter), speed);
 		return () => clearInterval(timer);
 	}, [employeeCounter, supervisorCounter, speed]);
 
@@ -89,10 +77,7 @@ const App = () => {
 	 * Increment the number of directors by the value stored in superivsorCounter every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(
-			() => setSupervisorCouter(supervisorCounter + directorCounter),
-			speed
-		);
+		const timer = setTimeout(() => setSupervisorCouter(supervisorCounter + directorCounter), speed);
 		return () => clearInterval(timer);
 	}, [supervisorCounter, directorCounter, speed]);
 
@@ -100,10 +85,7 @@ const App = () => {
 	 * Increment the number of vice presidents by the value stored in directorCounter every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(
-			() => setDirectorCounter(directorCounter + vicePresidentCounter),
-			speed
-		);
+		const timer = setTimeout(() => setDirectorCounter(directorCounter + vicePresidentCounter), speed);
 		return () => clearInterval(timer);
 	}, [directorCounter, vicePresidentCounter, speed]);
 
@@ -111,10 +93,7 @@ const App = () => {
 	 * Increment the number of executives by the value stored in vicePresidentCounter every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(
-			() => setVicePresidentCounter(vicePresidentCounter + executiveCounter),
-			speed
-		);
+		const timer = setTimeout(() => setVicePresidentCounter(vicePresidentCounter + executiveCounter), speed);
 		return () => clearInterval(timer);
 	}, [vicePresidentCounter, executiveCounter, speed]);
 
@@ -122,10 +101,7 @@ const App = () => {
 	 * Increment the number of ceo's by the value stored in executiveCounter every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(
-			() => setExecutiveCounter(executiveCounter + ceoCounter),
-			speed
-		);
+		const timer = setTimeout(() => setExecutiveCounter(executiveCounter + ceoCounter), speed);
 		return () => clearInterval(timer);
 	}, [executiveCounter, ceoCounter, speed]);
 
@@ -133,10 +109,7 @@ const App = () => {
 	 * Increment the number of chairmen by the value stored in ceoCounter every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(
-			() => setCeoCounter(ceoCounter + chairmanCounter),
-			speed
-		);
+		const timer = setTimeout(() => setCeoCounter(ceoCounter + chairmanCounter), speed);
 		return () => clearInterval(timer);
 	}, [ceoCounter, chairmanCounter, speed]);
 
@@ -285,7 +258,7 @@ const App = () => {
 	 * 	className={
 	 * 		can buy x number of staff
 	 * 			? white button
-	 * 			: grey button
+	 *: grey button
 	 * 	}
 	 * 	onClick={
 	 * 		can buy x number of staff
@@ -297,128 +270,126 @@ const App = () => {
 	 * </button>
 	 */
 
-	const PageTemplate = React.memo(
-		({
-			staffNamePlural,
-			staffCounter,
-			staffName,
-			costText,
-			moneyPerStaff,
-			previousStaffCounter,
-			PreviousStaffCost,
-			addStaff,
-		}) => {
-			return (
-				<div className='Page'>
-					<div>
-						{/**
-						 * Displays number of interns with a metric prefix if needed, and cost of an intern
-						 */}
-						<h1 className='PageHeader'>
-							{staffNamePlural}: {nFormatter(staffCounter)}
-						</h1>
-						<p className='PageCostTitle'>1 {staffName} costs:</p>
-						{costText}
-						{/**
-						 * "Hire" buttons
-						 */}
-						<div className='PageButtons'>
-							<button
-								className={
-									moneyCounter >= moneyPerStaff * Button1Ammount &&
-									previousStaffCounter >= PreviousStaffCost * Button1Ammount &&
-									positionCounter >= Button1Ammount
-										? 'enabled'
-										: 'disabled'
-								}
-								onClick={
-									moneyCounter >= moneyPerStaff * Button1Ammount &&
-									previousStaffCounter >= PreviousStaffCost * Button1Ammount &&
-									positionCounter >= Button1Ammount
-										? () => addStaff(Button1Ammount)
-										: undefined
-								}
-							>
-								Hire {Button1Ammount}
-							</button>
-							<button
-								className={
-									moneyCounter >= moneyPerStaff * Button2Ammount &&
-									previousStaffCounter >= PreviousStaffCost * Button2Ammount &&
-									positionCounter >= Button2Ammount
-										? 'enabled'
-										: 'disabled'
-								}
-								onClick={
-									moneyCounter >= moneyPerStaff * Button2Ammount &&
-									previousStaffCounter >= PreviousStaffCost * Button2Ammount &&
-									positionCounter >= Button2Ammount
-										? () => addStaff(Button2Ammount)
-										: undefined
-								}
-							>
-								Hire {Button2Ammount}
-							</button>
-							<button
-								className={
-									moneyCounter >= moneyPerStaff * Button3Ammount &&
-									previousStaffCounter >= PreviousStaffCost * Button3Ammount &&
-									positionCounter >= Button3Ammount
-										? 'enabled'
-										: 'disabled'
-								}
-								onClick={
-									moneyCounter >= moneyPerStaff * Button3Ammount &&
-									previousStaffCounter >= PreviousStaffCost * Button3Ammount &&
-									positionCounter >= Button3Ammount
-										? () => addStaff(Button3Ammount)
-										: undefined
-								}
-							>
-								Hire {Button3Ammount}
-							</button>
-							<button
-								className={
-									moneyCounter >= moneyPerStaff * Button4Ammount &&
-									previousStaffCounter >= PreviousStaffCost * Button4Ammount &&
-									positionCounter >= Button4Ammount
-										? 'enabled'
-										: 'disabled'
-								}
-								onClick={
-									moneyCounter >= moneyPerStaff * Button4Ammount &&
-									previousStaffCounter >= PreviousStaffCost * Button4Ammount &&
-									positionCounter >= Button4Ammount
-										? () => addStaff(Button4Ammount)
-										: undefined
-								}
-							>
-								Hire {Button4AmmountPrefix}
-							</button>
-							<button
-								className={
-									moneyCounter >= moneyPerStaff * Button5Ammount &&
-									previousStaffCounter >= PreviousStaffCost * Button5Ammount &&
-									positionCounter >= Button5Ammount
-										? 'enabled'
-										: 'disabled'
-								}
-								onClick={
-									moneyCounter >= moneyPerStaff * Button5Ammount &&
-									previousStaffCounter >= PreviousStaffCost * Button5Ammount &&
-									positionCounter >= Button4Ammount
-										? () => addStaff(Button5Ammount)
-										: undefined
-								}
-							>
-								Hire {Button5AmmountPrefix}
-							</button>
-						</div>
+	const PageTemplate = ({
+		staffNamePlural,
+		staffCounter,
+		staffName,
+		costText,
+		moneyPerStaff,
+		previousStaffCounter,
+		previouStaffCost,
+		addStaff,
+	}) => {
+		return (
+			<div className='Page'>
+				<div>
+					{/**
+					 * Displays number of interns with a metric prefix if needed, and cost of an intern
+					 */}
+					<h1 className='PageHeader'>
+						{staffNamePlural}: {nFormatter(staffCounter)}
+					</h1>
+					<p className='PageCostTitle'>1 {staffName} costs:</p>
+					{costText}
+					{/**
+					 * "Hire" buttons
+					 */}
+					<div className='PageButtons'>
+						<button
+							className={
+								moneyCounter >= moneyPerStaff * Button1Ammount &&
+								previousStaffCounter >= previouStaffCost * Button1Ammount &&
+								positionCounter >= Button1Ammount
+									? 'enabled'
+									: 'disabled'
+							}
+							onClick={
+								moneyCounter >= moneyPerStaff * Button1Ammount &&
+								previousStaffCounter >= previouStaffCost * Button1Ammount &&
+								positionCounter >= Button1Ammount
+									? () => addStaff(Button1Ammount)
+									: undefined
+							}
+						>
+							Hire {Button1Ammount}
+						</button>
+						<button
+							className={
+								moneyCounter >= moneyPerStaff * Button2Ammount &&
+								previousStaffCounter >= previouStaffCost * Button2Ammount &&
+								positionCounter >= Button2Ammount
+									? 'enabled'
+									: 'disabled'
+							}
+							onClick={
+								moneyCounter >= moneyPerStaff * Button2Ammount &&
+								previousStaffCounter >= previouStaffCost * Button2Ammount &&
+								positionCounter >= Button2Ammount
+									? () => addStaff(Button2Ammount)
+									: undefined
+							}
+						>
+							Hire {Button2Ammount}
+						</button>
+						<button
+							className={
+								moneyCounter >= moneyPerStaff * Button3Ammount &&
+								previousStaffCounter >= previouStaffCost * Button3Ammount &&
+								positionCounter >= Button3Ammount
+									? 'enabled'
+									: 'disabled'
+							}
+							onClick={
+								moneyCounter >= moneyPerStaff * Button3Ammount &&
+								previousStaffCounter >= previouStaffCost * Button3Ammount &&
+								positionCounter >= Button3Ammount
+									? () => addStaff(Button3Ammount)
+									: undefined
+							}
+						>
+							Hire {Button3Ammount}
+						</button>
+						<button
+							className={
+								moneyCounter >= moneyPerStaff * Button4Ammount &&
+								previousStaffCounter >= previouStaffCost * Button4Ammount &&
+								positionCounter >= Button4Ammount
+									? 'enabled'
+									: 'disabled'
+							}
+							onClick={
+								moneyCounter >= moneyPerStaff * Button4Ammount &&
+								previousStaffCounter >= previouStaffCost * Button4Ammount &&
+								positionCounter >= Button4Ammount
+									? () => addStaff(Button4Ammount)
+									: undefined
+							}
+						>
+							Hire {Button4AmmountPrefix}
+						</button>
+						<button
+							className={
+								moneyCounter >= moneyPerStaff * Button5Ammount &&
+								previousStaffCounter >= previouStaffCost * Button5Ammount &&
+								positionCounter >= Button5Ammount
+									? 'enabled'
+									: 'disabled'
+							}
+							onClick={
+								moneyCounter >= moneyPerStaff * Button5Ammount &&
+								previousStaffCounter >= previouStaffCost * Button5Ammount &&
+								positionCounter >= Button4Ammount
+									? () => addStaff(Button5Ammount)
+									: undefined
+							}
+						>
+							Hire {Button5AmmountPrefix}
+						</button>
 					</div>
 				</div>
-			);
-		}
-	);
+			</div>
+		);
+	};
 
 	/**
 	 * Displays when on the "/intern" or "/" page route
@@ -432,7 +403,7 @@ const App = () => {
 				addStaff={addInterns}
 				moneyPerStaff={10}
 				previousStaffCounter={null}
-				PreviousStaffCost={null}
+				previouStaffCost={null}
 				costText={
 					<p className='indent PageCosts'>
 						- 10 money
@@ -455,7 +426,7 @@ const App = () => {
 				addStaff={addEmployees}
 				moneyPerStaff={100}
 				previousStaffCounter={internCounter}
-				PreviousStaffCost={100}
+				previouStaffCost={100}
 				costText={
 					<p className='indent PageCosts'>
 						- 100 money
@@ -480,7 +451,7 @@ const App = () => {
 				addStaff={addSupervisors}
 				moneyPerStaff={1e3}
 				previousStaffCounter={employeeCounter}
-				PreviousStaffCost={100}
+				previouStaffCost={100}
 				costText={
 					<p className='indent PageCosts'>
 						- 1K money
@@ -505,7 +476,7 @@ const App = () => {
 				addStaff={addDirectors}
 				moneyPerStaff={1e4}
 				previousStaffCounter={supervisorCounter}
-				PreviousStaffCost={100}
+				previouStaffCost={100}
 				costText={
 					<p className='indent PageCosts'>
 						- 10K money
@@ -530,7 +501,7 @@ const App = () => {
 				addStaff={addVicePresidents}
 				moneyPerStaff={1e5}
 				previousStaffCounter={directorCounter}
-				PreviousStaffCost={100}
+				previouStaffCost={100}
 				costText={
 					<p className='indent PageCosts'>
 						- 100K money
@@ -555,7 +526,7 @@ const App = () => {
 				addStaff={addExecutives}
 				moneyPerStaff={1e6}
 				previousStaffCounter={vicePresidentCounter}
-				PreviousStaffCost={100}
+				previouStaffCost={100}
 				costText={
 					<p className='indent PageCosts'>
 						- 1M money
@@ -580,7 +551,7 @@ const App = () => {
 				addStaff={addCeos}
 				moneyPerStaff={1e7}
 				previousStaffCounter={executiveCounter}
-				PreviousStaffCost={100}
+				previouStaffCost={100}
 				costText={
 					<p className='indent PageCosts'>
 						- 10M money
@@ -605,7 +576,7 @@ const App = () => {
 				addStaff={addChairmen}
 				moneyPerStaff={1e8}
 				previousStaffCounter={ceoCounter}
-				PreviousStaffCost={100}
+				previouStaffCost={100}
 				costText={
 					<p className='indent PageCosts'>
 						- 100M money
@@ -629,12 +600,7 @@ const App = () => {
 	 *  - Creates buttons to be displayed in NavBar
 	 *  - Displays number of staff if there are any
 	 */
-	const NavBarTemplate = ({
-		buttonStyles,
-		pageRoute,
-		staffNamePlural,
-		staffCounter,
-	}) => {
+	const NavBarTemplate = ({ buttonStyles, pageRoute, staffNamePlural, staffCounter }) => {
 		return (
 			<NavLink
 				style={{
@@ -643,6 +609,7 @@ const App = () => {
 				}}
 				activeClassName='onPage'
 				to={pageRoute}
+				exact
 			>
 				{staffNamePlural}
 				{staffCounter !== 0 && ': ' + nFormatter(staffCounter)}
@@ -766,11 +733,7 @@ const App = () => {
 				return num >= item.value;
 			});
 
-		return item
-			? (Math.round((num / item.value) * 100) / 100)
-					.toString()
-					.replace(regex, '$1') + item.symbol
-			: '0';
+		return item ? (Math.round((num / item.value) * 100) / 100).toString().replace(regex, '$1') + item.symbol : '0';
 	}
 
 	/**
@@ -875,19 +838,9 @@ const App = () => {
 			 */}
 			<div id='timeMachineRestartSection'>
 				<button
-					className={
-						chairmanCounter >= 100 &&
-						moneyCounter >= 1e15 &&
-						positionCounter >= 1e4
-							? 'enabled'
-							: 'disabled'
-					}
+					className={chairmanCounter >= 100 && moneyCounter >= 1e15 && positionCounter >= 1e4 ? 'enabled' : 'disabled'}
 					onClick={
-						chairmanCounter >= 100 &&
-						moneyCounter >= 1e15 &&
-						positionCounter >= 1e4
-							? timeMachineRestart
-							: undefined
+						chairmanCounter >= 100 && moneyCounter >= 1e15 && positionCounter >= 1e4 ? timeMachineRestart : undefined
 					}
 				>
 					Time Machine Restart
@@ -905,9 +858,7 @@ const App = () => {
 			 * Displays Games Speed and Time Machine Count
 			 */}
 			<p id='gameSpeedPercent'>Game speed: {nFormatter(speedPercent)}%</p>
-			<p id='timeTravelCount'>
-				Time travel count: {nFormatter(timeMachineCount)}
-			</p>
+			<p id='timeTravelCount'>Time travel count: {nFormatter(timeMachineCount)}</p>
 			{/**
 			 * Winning display
 			 * */}
@@ -923,56 +874,47 @@ const App = () => {
 			 * Instructions Page
 			 */}
 			<div id='instructionPage'>
-				<h2>How to Play:</h2>
-				<b>Objective:</b>
+				<h2>How to Play : </h2>
+				<b>Objective: </b>
 				<p>The objective of the game is to obtain 1 Insurmountable money.</p>
-				<b>Money:</b>
-				<p>
-					Money is used to buy pretty much everything. You receive money based
-					on the number of interns you have.
-				</p>
+				<b>Money: </b>
+				<p>Money is used to buy pretty much everything. You receive money based on the number of interns you have.</p>
 
 				<b>Positions: </b>
 				<p>
-					Positions are used to hire Staff. If you don't have a job to give your
-					staff, it really doesn't make sense to hire them.
+					Positions are used to hire Staff. If you don't have a job to give your staff, it really doesn't make sense to
+					hire them.
 				</p>
 				<p>
-					At the beginning of the game, you get 1 Position each second. However,
-					you can increase the number of positions per second by upgrading your
-					positions. At the beginning of the game it costs 100 Money to upgrade,
+					At the beginning of the game, you get 1 Position each second. However, you can increase the number of
+					positions per second by upgrading your positions. At the beginning of the game it costs 100 Money to upgrade,
 					but each upgrade costs 50% more than the last one.
 				</p>
 
-				<b>Staff:</b>
+				<b>Staff: </b>
 				<p>
-					The Intern is the only Staff that only costs Money and Positions. An
-					Intern costs 10 Money and 1 Position. Each Intern earns you 1 Money
-					each second.{' '}
+					The Intern is the only Staff that only costs Money and Positions. An Intern costs 10 Money and 1 Position.
+					Each Intern earns you 1 Money each second.{' '}
 				</p>
 				<p>
-					The rest of the Staff are all basically the same. An Employee costs
-					100 Interns, 100 Money and 1 Position; The Supervisor costs 100
-					Employees, 100 Money and 1 Position. The rest of the Staff work
-					like-wise.
+					The rest of the Staff are all basically the same. An Employee costs 100 Interns, 100 Money and 1 Position; The
+					Supervisor costs 100 Employees, 100 Money and 1 Position. The rest of the Staff work like-wise.
 				</p>
 				<p>
-					In addition, every second each Employee will give you a free Intern,
-					each Supervisor will give you a free Employee, etc.
+					In addition, every second each Employee will give you a free Intern, each Supervisor will give you a free
+					Employee, etc.
 				</p>
 
-				<b>Time Machine Restart:</b>
+				<b>Time Machine Restart: </b>
 				<p>
-					Getting to 1 insurmountable money can be tough at the initial speed of
-					the game, so it might help to use the "Time Machine Restart". The Time
-					Machine will restart all your progress, but make each second shorter.
+					Getting to 1 insurmountable money can be tough at the initial speed of the game, so it might help to use the
+					"Time Machine Restart". The Time Machine will restart all your progress, but make each second shorter.
 				</p>
 
-				<b>Icons next to staff buttons:</b>
+				<b>Icons next to staff buttons: </b>
 				<p>
-					A "1" next to the tab that you're on means that you can buy 1 of the
-					next-tier staff, and a "1k" means that you can buy 1k of the
-					previous-tier staff.
+					A "1" next to the tab that you're on means that you can buy 1 of the next-tier staff, and a "1k" means that
+					you can buy 1k of the previous-tier staff.
 				</p>
 			</div>
 		</>
