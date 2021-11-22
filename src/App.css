@@ -305,7 +305,3 @@ a:active {
 	background-color: #ddd;
 	overflow-y: auto !important;
 }
-
-button:hover {
-	background-color:red;
-}
