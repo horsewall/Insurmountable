@@ -797,7 +797,7 @@ const App = () => {
 				<button
 					className={moneyCounter >= upgradeCost ? 'enabled' : 'disabled'}
 					id='upgradeButton'
-					onClick={moneyCounter >= upgradeCost && upgradePosition}
+					onClick={moneyCounter >= upgradeCost ? upgradePosition : undefined}
 				>
 					Upgrade Positions
 				</button>
