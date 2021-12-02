@@ -708,7 +708,7 @@ const App = () => {
 	 * ------------------------------------------------------------------------------------------------------------------
 	 */
 
-	function nFormatter(num, digits) {
+	function nFormatter(num) {
 		const lookup = [
 			{ value: 1, symbol: '' },
 			{ value: 1e3, symbol: 'K' }, // Kilo
@@ -733,7 +733,26 @@ const App = () => {
 				return num >= item.value;
 			});
 
-		return item ? (Math.round((num / item.value) * 100) / 100).toString().replace(regex, '$1') + item.symbol : '0';
+		var numLength = Math.floor(num).toString().length; // Calculates the ammount of digits in the "num" parameter
+
+		if (num < 1000) {
+			//Prevents numbers under 1000 from displaying decimals
+			var number = 1;
+			/**
+			 * Prevents numbers with more than 3 significant digits
+			 */
+		} else if (numLength % 3 === 1) {
+			var number = 100;
+		} else if (numLength % 3 === 2) {
+			var number = 10;
+		} else if (numLength % 3 === 0) {
+			var number = 1;
+		}
+
+		/**
+		 * Reformating numbers to have SI Prefixes
+		 */
+		return item && (Math.floor((num / item.value) * number) / number).toString().replace(regex, '$1') + item.symbol;
 	}
 
 	/**
