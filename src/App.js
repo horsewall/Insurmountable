@@ -735,24 +735,29 @@ const App = () => {
 
 		var numLength = Math.floor(num).toString().length; // Calculates the ammount of digits in the "num" parameter
 
+			var number = 1
+
 		if (num < 1000) {
 			//Prevents numbers under 1000 from displaying decimals
-			var number = 1;
+			number = 1;
 			/**
 			 * Prevents numbers with more than 3 significant digits
 			 */
 		} else if (numLength % 3 === 1) {
-			var number = 100;
+			number = 100;
 		} else if (numLength % 3 === 2) {
-			var number = 10;
+			number = 10;
 		} else if (numLength % 3 === 0) {
-			var number = 1;
+			number = 1;
 		}
 
 		/**
 		 * Reformating numbers to have SI Prefixes
+		 * Display '0' if there's no number
 		 */
-		return item && (Math.floor((num / item.value) * number) / number).toString().replace(regex, '$1') + item.symbol;
+		return item
+			? (Math.floor((num / item.value) * number) / number).toString().replace(regex, '$1') + item.symbol
+			: '0';
 	}
 
 	/**
