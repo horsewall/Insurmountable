@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import './App.css';
 
 const App = () => {
-	const [speed, setSpeed] = useState(1000); // Speed of the game (Milliseconds between updates)
-	const [speedPercent, setSpeedPercent] = useState(100); // Speed of the game in percents
+	var speed = 1000; // Speed of the game in percents
+
+	const [multiplier, setMultiplier] = useState(1);
 	const [timeMachineCount, setTimeMachineCount] = useState(0); // How many times you've Time Machine Restarted
 	const [positionCounterSpeed, setPositionCounterSpeed] = useState(1); // Number of positions ot add every Update Cycle
 	const [upgradeCost, setUpgradeCost] = useState(100); // Cost of a position upgrade
@@ -45,73 +46,76 @@ const App = () => {
 	 * Increments the number of open job positions by the value stored in positionCounterSpeed every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(() => setPositionCounter(positionCounter + positionCounterSpeed), speed);
+		const timer = setTimeout(() => setPositionCounter(positionCounter + positionCounterSpeed * multiplier), speed);
 		return () => clearInterval(timer);
-	}, [positionCounter, positionCounterSpeed, speed]);
+	}, [positionCounter, positionCounterSpeed, speed, multiplier]);
 
 	/**
 	 * Increment the number of interns by the value stored in moneyCounter every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(() => setMoneyCounter(moneyCounter + internCounter), speed);
+		const timer = setTimeout(() => setMoneyCounter(moneyCounter + internCounter * multiplier), speed);
 		return () => clearInterval(timer);
-	}, [moneyCounter, internCounter, speed]);
+	}, [moneyCounter, internCounter, speed, multiplier]);
 
 	/**
 	 * Increment the number of employees by the value stored in internCounter every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(() => setInternCounter(internCounter + employeeCounter), speed);
+		const timer = setTimeout(() => setInternCounter(internCounter + employeeCounter * multiplier), speed);
 		return () => clearInterval(timer);
-	}, [internCounter, employeeCounter, speed]);
+	}, [internCounter, employeeCounter, speed, multiplier]);
 
 	/**
 	 * Increment the number of supervisors by the value stored in employeeCounter every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(() => setEmployeeCounter(employeeCounter + supervisorCounter), speed);
+		const timer = setTimeout(() => setEmployeeCounter(employeeCounter + supervisorCounter * multiplier), speed);
 		return () => clearInterval(timer);
-	}, [employeeCounter, supervisorCounter, speed]);
+	}, [employeeCounter, supervisorCounter, speed, multiplier]);
 
 	/**
 	 * Increment the number of directors by the value stored in superivsorCounter every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(() => setSupervisorCouter(supervisorCounter + directorCounter), speed);
+		const timer = setTimeout(() => setSupervisorCouter(supervisorCounter + directorCounter * multiplier), speed);
 		return () => clearInterval(timer);
-	}, [supervisorCounter, directorCounter, speed]);
+	}, [supervisorCounter, directorCounter, speed, multiplier]);
 
 	/**
 	 * Increment the number of vice presidents by the value stored in directorCounter every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(() => setDirectorCounter(directorCounter + vicePresidentCounter), speed);
+		const timer = setTimeout(() => setDirectorCounter(directorCounter + vicePresidentCounter * multiplier), speed);
 		return () => clearInterval(timer);
-	}, [directorCounter, vicePresidentCounter, speed]);
+	}, [directorCounter, vicePresidentCounter, speed, multiplier]);
 
 	/**
 	 * Increment the number of executives by the value stored in vicePresidentCounter every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(() => setVicePresidentCounter(vicePresidentCounter + executiveCounter), speed);
+		const timer = setTimeout(
+			() => setVicePresidentCounter(vicePresidentCounter + executiveCounter * multiplier),
+			speed
+		);
 		return () => clearInterval(timer);
-	}, [vicePresidentCounter, executiveCounter, speed]);
+	}, [vicePresidentCounter, executiveCounter, speed, multiplier]);
 
 	/**
 	 * Increment the number of ceo's by the value stored in executiveCounter every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(() => setExecutiveCounter(executiveCounter + ceoCounter), speed);
+		const timer = setTimeout(() => setExecutiveCounter(executiveCounter + ceoCounter * multiplier), speed);
 		return () => clearInterval(timer);
-	}, [executiveCounter, ceoCounter, speed]);
+	}, [executiveCounter, ceoCounter, speed, multiplier]);
 
 	/**
 	 * Increment the number of chairmen by the value stored in ceoCounter every update cycle
 	 */
 	useEffect(() => {
-		const timer = setTimeout(() => setCeoCounter(ceoCounter + chairmanCounter), speed);
+		const timer = setTimeout(() => setCeoCounter(ceoCounter + chairmanCounter * multiplier), speed);
 		return () => clearInterval(timer);
-	}, [ceoCounter, chairmanCounter, speed]);
+	}, [ceoCounter, chairmanCounter, speed, multiplier]);
 
 	/**
 	 * There is no need for a chairmanCounter because there is no staff higher than the Chairman.
@@ -216,8 +220,7 @@ const App = () => {
 	 * Sets all the useStates to their initial values
 	 */
 	function restart() {
-		setSpeed(1000);
-		setSpeedPercent(100);
+		setMultiplier(1);
 		setTimeMachineCount(0);
 		setPositionCounter(1);
 		setPositionCounterSpeed(1);
@@ -240,8 +243,8 @@ const App = () => {
 	 */
 	function timeMachineRestart() {
 		restart();
-		setSpeed(speed / 1.5);
-		setSpeedPercent(speedPercent * 1.5);
+		setPositionCounter(multiplier);
+		setMultiplier(multiplier * 1.5);
 		setTimeMachineCount(timeMachineCount + 1);
 	}
 
@@ -277,8 +280,8 @@ const App = () => {
 		costText,
 		moneyPerStaff,
 		previousStaffCounter,
-		previouStaffCost,
 		addStaff,
+		previouStaffCost,
 	}) => {
 		return (
 			<div className='Page'>
@@ -400,10 +403,10 @@ const App = () => {
 				staffName={'Intern'}
 				staffNamePlural={'Interns'}
 				staffCounter={internCounter}
-				addStaff={addInterns}
 				moneyPerStaff={10}
 				previousStaffCounter={null}
 				previouStaffCost={null}
+				addStaff={addInterns}
 				costText={
 					<p className='indent PageCosts'>
 						- 10 money
@@ -733,31 +736,11 @@ const App = () => {
 				return num >= item.value;
 			});
 
-		var numLength = Math.floor(num).toString().length; // Calculates the ammount of digits in the "num" parameter
-
-			var number = 1
-
-		if (num < 1000) {
-			//Prevents numbers under 1000 from displaying decimals
-			number = 1;
-			/**
-			 * Prevents numbers with more than 3 significant digits
-			 */
-		} else if (numLength % 3 === 1) {
-			number = 100;
-		} else if (numLength % 3 === 2) {
-			number = 10;
-		} else if (numLength % 3 === 0) {
-			number = 1;
-		}
-
 		/**
 		 * Reformating numbers to have SI Prefixes
 		 * Display '0' if there's no number
 		 */
-		return item
-			? (Math.floor((num / item.value) * number) / number).toString().replace(regex, '$1') + item.symbol
-			: '0';
+		return item ? (num / item.value).toPrecision(3).toString().replace(regex, '$1') + '\u2009' + item.symbol : '0';
 	}
 
 	/**
@@ -881,7 +864,7 @@ const App = () => {
 			{/**
 			 * Displays Games Speed and Time Machine Count
 			 */}
-			<p id='gameSpeedPercent'>Game speed: {nFormatter(speedPercent)}%</p>
+			<p id='gameSpeedPercent'>Multiplier:ㅤx {nFormatter(multiplier)}</p>
 			<p id='timeTravelCount'>Time travel count: {nFormatter(timeMachineCount)}</p>
 			{/**
 			 * Winning display
