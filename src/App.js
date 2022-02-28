@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import Popup from 'reactjs-popup';
-import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import nFormatter from './nFormatter';
 import './App.css';
 
 const App = () => {
 	var speed = 1000; // Speed of the game in percents
 
-	const [multiplier, setMultiplier] = useState(1);
-	const [timeMachineCount, setTimeMachineCount] = useState(0); // How many times you've Time Machine Restarted
-	const [positionCounterSpeed, setPositionCounterSpeed] = useState(1); // Number of positions ot add every Update Cycle
-	const [upgradeCost, setUpgradeCost] = useState(100); // Cost of a position upgrade
+	const [multiplier, setMultiplier] = useState(parseInt(localStorage.getItem('Multiplier')) || 1);
+	const [timeMachineCount, setTimeMachineCount] = useState(parseInt(localStorage.getItem('Time Machine Count')) || 0); // How many times you've Time Machine Restarted
+	const [positionCounterSpeed, setPositionCounterSpeed] = useState(
+		parseInt(localStorage.getItem('Position Counter Speed')) || 1
+	); // Number of positions ot add every Update Cycle
+	const [upgradeCost, setUpgradeCost] = useState(parseInt(localStorage.getItem('Upgrade Cost')) || 100); // Cost of a position upgrade
 
 	/**
 	 * How many staff each button gives you, and how much it costs
@@ -25,16 +28,18 @@ const App = () => {
 	/**
 	 * Counter Variables: Increase every Update Cycle (initially 1000ms)
 	 */
-	const [moneyCounter, setMoneyCounter] = useState(10);
-	const [positionCounter, setPositionCounter] = useState(1);
-	const [internCounter, setInternCounter] = useState(0);
-	const [employeeCounter, setEmployeeCounter] = useState(0);
-	const [supervisorCounter, setSupervisorCouter] = useState(0);
-	const [directorCounter, setDirectorCounter] = useState(0);
-	const [vicePresidentCounter, setVicePresidentCounter] = useState(0);
-	const [executiveCounter, setExecutiveCounter] = useState(0);
-	const [ceoCounter, setCeoCounter] = useState(0);
-	const [chairmanCounter, setChairmanCounter] = useState(0);
+	const [moneyCounter, setMoneyCounter] = useState(parseInt(localStorage.getItem('Money')) || 10);
+	const [positionCounter, setPositionCounter] = useState(parseInt(localStorage.getItem('Positions')) || 1);
+	const [internCounter, setInternCounter] = useState(parseInt(localStorage.getItem('Interns')) || 0);
+	const [employeeCounter, setEmployeeCounter] = useState(parseInt(localStorage.getItem('Employees')) || 0);
+	const [supervisorCounter, setSupervisorCouter] = useState(parseInt(localStorage.getItem('Supervisors')) || 0);
+	const [directorCounter, setDirectorCounter] = useState(parseInt(localStorage.getItem('Directors')) || 0);
+	const [vicePresidentCounter, setVicePresidentCounter] = useState(
+		parseInt(localStorage.getItem('Vice Presidents')) || 0
+	);
+	const [executiveCounter, setExecutiveCounter] = useState(parseInt(localStorage.getItem('Executives')) || 0);
+	const [ceoCounter, setCeoCounter] = useState(parseInt(localStorage.getItem('CEOs')) || 0);
+	const [chairmanCounter, setChairmanCounter] = useState(parseInt(localStorage.getItem('Chairmen')) || 0);
 
 	/**
 	 * ------------------------------------------------------------------------------------------------------------------
@@ -116,6 +121,25 @@ const App = () => {
 		const timer = setTimeout(() => setCeoCounter(ceoCounter + chairmanCounter * multiplier), speed);
 		return () => clearInterval(timer);
 	}, [ceoCounter, chairmanCounter, speed, multiplier]);
+
+	function pushToLocalStorage() {
+		localStorage.setItem('Multiplier', multiplier);
+		localStorage.setItem('Time Machine Count', timeMachineCount);
+		localStorage.setItem('Position Counter Speed', positionCounterSpeed);
+		localStorage.setItem('Upgrade Cost', upgradeCost);
+		localStorage.setItem('Money', moneyCounter);
+		localStorage.setItem('Positions', positionCounter);
+		localStorage.setItem('Interns', internCounter);
+		localStorage.setItem('Employees', employeeCounter);
+		localStorage.setItem('Supervisors', supervisorCounter);
+		localStorage.setItem('Directors', directorCounter);
+		localStorage.setItem('Vice Presidents', vicePresidentCounter);
+		localStorage.setItem('Executives', executiveCounter);
+		localStorage.setItem('CEOs', ceoCounter);
+		localStorage.setItem('Chairmen', chairmanCounter);
+	}
+
+	pushToLocalStorage();
 
 	/**
 	 * There is no need for a chairmanCounter because there is no staff higher than the Chairman.
@@ -610,9 +634,9 @@ const App = () => {
 					position: 'absolute',
 					top: buttonStyles,
 				}}
-				activeClassName='onPage'
+				className={({ isActive }) => 'list-group-item' + (isActive ? 'onPage' : '')}
 				to={pageRoute}
-				exact
+				exact='true'
 			>
 				{staffNamePlural}
 				{staffCounter !== 0 && ': ' + nFormatter(staffCounter)}
@@ -711,37 +735,7 @@ const App = () => {
 	 * ------------------------------------------------------------------------------------------------------------------
 	 */
 
-	function nFormatter(num) {
-		const lookup = [
-			{ value: 1, symbol: '' },
-			{ value: 1e3, symbol: 'K' }, // Kilo
-			{ value: 1e6, symbol: 'M' }, // Mega
-			{ value: 1e9, symbol: 'G' }, // Giga
-			{ value: 1e12, symbol: 'T' }, // Tera
-			{ value: 1e15, symbol: 'P' }, // Peta
-			{ value: 1e18, symbol: 'E' }, // exa
-			{ value: 1e21, symbol: 'Z' }, // Zetta
-			{ value: 1e24, symbol: 'Y' }, // Yotta
-			{ value: 1e27, symbol: 'e27' },
-			{ value: 1e28, symbol: 'e28' },
-			{ value: 1e29, symbol: 'e29' },
-			{ value: 1e30, symbol: 'e30' },
-			{ value: 1e31, symbol: ' Insurmountable' },
-		];
-		const regex = /\.0+$|(\.[0-9]*[1-9])0+$/;
-		var item = lookup
-			.slice()
-			.reverse()
-			.find(function (item) {
-				return num >= item.value;
-			});
-
-		/**
-		 * Reformating numbers to have SI Prefixes
-		 * Display '0' if there's no number
-		 */
-		return item ? (num / item.value).toPrecision(3).toString().replace(regex, '$1') + '\u2009' + item.symbol : '0';
-	}
+	<nFormatter />
 
 	/**
 	 * ------------------------------------------------------------------------------------------------------------------
@@ -757,15 +751,17 @@ const App = () => {
 			<Router>
 				<div>
 					<NavBar />
-					<Route path='/' component={Intern} exact />
-					<Route path='/intern' component={Intern} />
-					<Route path='/employee' component={Employee} />
-					<Route path='/supervisor' component={Supervisor} />
-					<Route path='/director' component={Director} />
-					<Route path='/vice-president' component={VicePresident} />
-					<Route path='/executive' component={Executive} />
-					<Route path='/ceo' component={CEO} />
-					<Route path='/chairman' component={Chairman} />
+					<Routes>
+						<Route path='/' element={<Intern />} exact />
+						<Route path='/intern' element={<Intern />} />
+						<Route path='/employee' element={<Employee />} />
+						<Route path='/supervisor' element={<Supervisor />} />
+						<Route path='/director' element={<Director />} />
+						<Route path='/vice-president' element={<VicePresident />} />
+						<Route path='/executive' element={<Executive />} />
+						<Route path='/ceo' element={<CEO />} />
+						<Route path='/chairman' element={<Chairman />} />
+					</Routes>
 				</div>
 			</Router>
 			{/**
