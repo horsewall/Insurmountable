@@ -7,7 +7,7 @@ import './App.css';
 const App = () => {
 	var speed = 1000; // Speed of the game in percents
 
-	const [multiplier, setMultiplier] = useState(parseInt(localStorage.getItem('Multiplier')) || 1);
+	const [multiplier, setMultiplier] = useState(parseInt(localStorage.getItem('Multiplier'))/100 || 1);
 	const [timeMachineCount, setTimeMachineCount] = useState(parseInt(localStorage.getItem('Time Machine Count')) || 0); // How many times you've Time Machine Restarted
 	const [positionCounterSpeed, setPositionCounterSpeed] = useState(
 		parseInt(localStorage.getItem('Position Counter Speed')) || 1
@@ -123,7 +123,7 @@ const App = () => {
 	}, [ceoCounter, chairmanCounter, speed, multiplier]);
 
 	function pushToLocalStorage() {
-		localStorage.setItem('Multiplier', multiplier);
+		localStorage.setItem('Multiplier', multiplier * 100);
 		localStorage.setItem('Time Machine Count', timeMachineCount);
 		localStorage.setItem('Position Counter Speed', positionCounterSpeed);
 		localStorage.setItem('Upgrade Cost', upgradeCost);
