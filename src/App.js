@@ -7,7 +7,7 @@ import './App.css';
 const App = () => {
 	var speed = 1000; // Speed of the game in percents
 
-	const [multiplier, setMultiplier] = useState(parseInt(localStorage.getItem('Multiplier'))/100 || 1);
+	const [multiplier, setMultiplier] = useState((parseInt(localStorage.getItem('Multiplier'))/100) || 1);
 	const [timeMachineCount, setTimeMachineCount] = useState(parseInt(localStorage.getItem('Time Machine Count')) || 0); // How many times you've Time Machine Restarted
 	const [positionCounterSpeed, setPositionCounterSpeed] = useState(
 		parseInt(localStorage.getItem('Position Counter Speed')) || 1
@@ -35,7 +35,7 @@ const App = () => {
 	const [supervisorCounter, setSupervisorCouter] = useState(parseInt(localStorage.getItem('Supervisors')) || 0);
 	const [directorCounter, setDirectorCounter] = useState(parseInt(localStorage.getItem('Directors')) || 0);
 	const [vicePresidentCounter, setVicePresidentCounter] = useState(
-		parseInt(localStorage.getItem('Vice Presidents')) || 0
+		parseInt(localStorage.getItem('Vice Presidents')) || 9
 	);
 	const [executiveCounter, setExecutiveCounter] = useState(parseInt(localStorage.getItem('Executives')) || 0);
 	const [ceoCounter, setCeoCounter] = useState(parseInt(localStorage.getItem('CEOs')) || 0);
