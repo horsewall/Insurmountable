@@ -35,7 +35,7 @@ const App = () => {
 	const [supervisorCounter, setSupervisorCouter] = useState(parseInt(localStorage.getItem('Supervisors')) || 0);
 	const [directorCounter, setDirectorCounter] = useState(parseInt(localStorage.getItem('Directors')) || 0);
 	const [vicePresidentCounter, setVicePresidentCounter] = useState(
-		parseInt(localStorage.getItem('Vice Presidents')) || 9
+		parseInt(localStorage.getItem('Vice Presidents')) || 0
 	);
 	const [executiveCounter, setExecutiveCounter] = useState(parseInt(localStorage.getItem('Executives')) || 0);
 	const [ceoCounter, setCeoCounter] = useState(parseInt(localStorage.getItem('CEOs')) || 0);
